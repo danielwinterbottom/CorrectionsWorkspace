@@ -130,7 +130,7 @@ histsToWrap = [
 
 
 for task in histsToWrap:
-    wsptools.SafeWrapHist(w, ['sjdphi','m_sv'],
+    wsptools.SafeWrapHist(w, ['expr::abs_sjdphi("TMath::Abs(@0)",sjdphi[0])','m_sv'],
                           GetFromTFile(task[0]), name=task[1],incOF=True)
 
 procs = ['w','qcd','ttbar']
