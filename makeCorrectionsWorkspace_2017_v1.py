@@ -129,24 +129,37 @@ for task in histsToWrap:
 loc = 'inputs/ICSF/2017/'
 
 histsToWrap = [
-    (loc+'Mu23Ele12/electron_SFs.root:data_trg_eff', 'e_trg_12_data'),
-    (loc+'Mu23Ele12/electron_SFs.root:ZLL_trg_eff', 'e_trg_12_mc'),
-    (loc+'Mu8Ele23/electron_SFs.root:data_trg_eff', 'e_trg_23_data'),
-    (loc+'Mu8Ele23/electron_SFs.root:ZLL_trg_eff', 'e_trg_23_mc')
+    (loc+'em_lo/electron_SFs.root:data_trg_eff', 'e_trg_12_data'),
+    (loc+'em_lo/electron_SFs.root:ZLL_trg_eff', 'e_trg_12_mc'),
+    (loc+'em_lo/electron_SFs.root:embed_trg_eff', 'e_trg_12_embed'),
+    (loc+'em_hi/electron_SFs.root:data_trg_eff', 'e_trg_23_data'),
+    (loc+'em_hi/electron_SFs.root:ZLL_trg_eff', 'e_trg_23_mc'),
+    (loc+'em_hi/electron_SFs.root:embed_trg_eff', 'e_trg_23_embed'),
+
+    (loc+'em_lo/aiso/electron_SFs.root:data_trg_eff', 'e_trg_12_aiso_data'),
+    (loc+'em_lo/aiso/electron_SFs.root:ZLL_trg_eff', 'e_trg_12_aiso_mc'),
+    (loc+'em_lo/aiso/electron_SFs.root:embed_trg_eff', 'e_trg_12_aiso_embed'),
+    (loc+'em_hi/aiso/electron_SFs.root:data_trg_eff', 'e_trg_23_aiso_data'),
+    (loc+'em_hi/aiso/electron_SFs.root:ZLL_trg_eff', 'e_trg_23_aiso_mc'),
+    (loc+'em_hi/aiso/electron_SFs.root:embed_trg_eff', 'e_trg_23_aiso_embed')
 ]
 
 for task in histsToWrap:
     wsptools.SafeWrapHist(w, ['e_pt', 'expr::e_abs_eta("TMath::Abs(@0)",e_eta[0])'],
                           GetFromTFile(task[0]), name=task[1])
 
-wsptools.MakeBinnedCategoryFuncMap(w, 'e_iso', [0., 0.15, 0.30, 0.50],
-                                   'e_trg_binned_23_data', ['e_trg_23_data', 'e_trg_23_data', 'e_trg_23_data'])
-wsptools.MakeBinnedCategoryFuncMap(w, 'e_iso', [0., 0.15, 0.30, 0.50],
-                                   'e_trg_binned_23_mc', ['e_trg_23_mc', 'e_trg_23_mc', 'e_trg_23_mc'])
-wsptools.MakeBinnedCategoryFuncMap(w, 'e_iso', [0., 0.15, 0.30, 0.50],
-                                   'e_trg_binned_12_data', ['e_trg_12_data', 'e_trg_12_data', 'e_trg_12_data'])
-wsptools.MakeBinnedCategoryFuncMap(w, 'e_iso', [0., 0.15, 0.30, 0.50],
-                                   'e_trg_binned_12_mc', ['e_trg_12_mc', 'e_trg_12_mc', 'e_trg_12_mc'])
+wsptools.MakeBinnedCategoryFuncMap(w, 'e_iso', [0., 0.15, 0.5],
+                                   'e_trg_binned_23_data', ['e_trg_23_data', 'e_trg_23_aiso_data'])
+wsptools.MakeBinnedCategoryFuncMap(w, 'e_iso', [0., 0.15, 0.50],
+                                   'e_trg_binned_23_mc', ['e_trg_23_mc', 'e_trg_23_aiso_mc'])
+wsptools.MakeBinnedCategoryFuncMap(w, 'e_iso', [0., 0.15, 0.50],
+                                   'e_trg_binned_23_embed', ['e_trg_23_embed', 'e_trg_23_aiso_embed'])
+wsptools.MakeBinnedCategoryFuncMap(w, 'e_iso', [0., 0.15, 0.50],
+                                   'e_trg_binned_12_data', ['e_trg_12_data', 'e_trg_12_aiso_data'])
+wsptools.MakeBinnedCategoryFuncMap(w, 'e_iso', [0., 0.15, 0.50],
+                                   'e_trg_binned_12_mc', ['e_trg_12_mc', 'e_trg_12_aiso_mc'])
+wsptools.MakeBinnedCategoryFuncMap(w, 'e_iso', [0., 0.15, 0.50],
+                                   'e_trg_binned_12_embed', ['e_trg_12_embed', 'e_trg_12_aiso_embed'])
 
 for t in ['trg','trg_binned']:
     w.factory('expr::e_%s_12_ratio("@0/@1", e_%s_12_data, e_%s_12_mc)' % (t, t, t))
@@ -154,24 +167,56 @@ for t in ['trg','trg_binned']:
 
 
 histsToWrap = [
-    (loc+'Mu23Ele12/muon_SFs.root:data_trg_eff', 'm_trg_23_data'),
-    (loc+'Mu23Ele12/muon_SFs.root:ZLL_trg_eff', 'm_trg_23_mc'),
-    (loc+'Mu8Ele23/muon_SFs.root:data_trg_eff', 'm_trg_8_data'),
-    (loc+'Mu8Ele23/muon_SFs.root:ZLL_trg_eff', 'm_trg_8_mc')
+    (loc+'em_hi/muon_SFs.root:data_trg_eff', 'm_trg_23_data'),
+    (loc+'em_hi/muon_SFs.root:ZLL_trg_eff', 'm_trg_23_mc'),
+    (loc+'em_hi/muon_SFs.root:embed_trg_eff', 'm_trg_23_embed'),
+    (loc+'em_lo/muon_SFs.root:data_trg_eff', 'm_trg_8_data'),
+    (loc+'em_lo/muon_SFs.root:ZLL_trg_eff', 'm_trg_8_mc'),
+    (loc+'em_lo/muon_SFs.root:embed_trg_eff', 'm_trg_8_embed'),
+    (loc+'em_lo/muon_SFs.root:data_iso_eff', 'm_looseiso_data'),
+    (loc+'em_lo/muon_SFs.root:ZLL_iso_eff', 'm_looseiso_mc'),
+    (loc+'em_lo/muon_SFs.root:embed_iso_eff', 'm_looseiso_embed'),
+
+    (loc+'em_hi/aiso/muon_SFs.root:data_trg_eff', 'm_trg_23_aiso_data'),
+    (loc+'em_hi/aiso/muon_SFs.root:ZLL_trg_eff', 'm_trg_23_aiso_mc'),
+    (loc+'em_hi/aiso/muon_SFs.root:embed_trg_eff', 'm_trg_23_aiso_embed'),
+    (loc+'em_lo/aiso/muon_SFs.root:data_trg_eff', 'm_trg_8_aiso_data'),
+    (loc+'em_lo/aiso/muon_SFs.root:ZLL_trg_eff', 'm_trg_8_aiso_mc'),
+    (loc+'em_lo/aiso/muon_SFs.root:embed_trg_eff', 'm_trg_8_aiso_embed'),
+    (loc+'em_lo/aiso/muon_SFs.root:data_iso_eff', 'm_looseiso_aiso_data'),
+    (loc+'em_lo/aiso/muon_SFs.root:ZLL_iso_eff', 'm_looseiso_aiso_mc'),
+    (loc+'em_lo/aiso/muon_SFs.root:embed_iso_eff', 'm_looseiso_aiso_embed') 
 ]
 
 for task in histsToWrap:
     wsptools.SafeWrapHist(w, ['m_pt', 'expr::m_abs_eta("TMath::Abs(@0)",m_eta[0])'],
                           GetFromTFile(task[0]), name=task[1])
 
-wsptools.MakeBinnedCategoryFuncMap(w, 'm_iso', [0., 0.15, 0.30, 0.50],
-                                   'm_trg_binned_23_data', ['m_trg_23_data', 'm_trg_23_data', 'm_trg_23_data'])
-wsptools.MakeBinnedCategoryFuncMap(w, 'm_iso', [0., 0.15, 0.30, 0.50],
-                                   'm_trg_binned_23_mc', ['m_trg_23_mc', 'm_trg_23_mc', 'm_trg_23_mc'])
-wsptools.MakeBinnedCategoryFuncMap(w, 'm_iso', [0., 0.15, 0.30, 0.50],
-                                   'm_trg_binned_8_data', ['m_trg_8_data', 'm_trg_8_data', 'm_trg_8_data'])
-wsptools.MakeBinnedCategoryFuncMap(w, 'm_iso', [0., 0.15, 0.30, 0.50],
-                                   'm_trg_binned_8_mc', ['m_trg_8_mc', 'm_trg_8_mc', 'm_trg_8_mc'])
+wsptools.MakeBinnedCategoryFuncMap(w, 'm_iso', [0., 0.2, 0.50],
+                                   'm_trg_binned_23_data', ['m_trg_23_data', 'm_trg_23_aiso_data'])
+wsptools.MakeBinnedCategoryFuncMap(w, 'm_iso', [0., 0.2, 0.50],
+                                   'm_trg_binned_23_mc', ['m_trg_23_mc', 'm_trg_23_aiso_mc'])
+wsptools.MakeBinnedCategoryFuncMap(w, 'm_iso', [0., 0.2, 0.50],
+                                   'm_trg_binned_23_embed', ['m_trg_23_embed', 'm_trg_23_aiso_embed'])
+wsptools.MakeBinnedCategoryFuncMap(w, 'm_iso', [0., 0.2, 0.50],
+                                   'm_trg_binned_8_data', ['m_trg_8_data', 'm_trg_8_aiso_data'])
+wsptools.MakeBinnedCategoryFuncMap(w, 'm_iso', [0., 0.2, 0.50],
+                                   'm_trg_binned_8_mc', ['m_trg_8_mc', 'm_trg_8_aiso_mc'])
+wsptools.MakeBinnedCategoryFuncMap(w, 'm_iso', [0., 0.2, 0.50],
+                                   'm_trg_binned_8_embed', ['m_trg_8_embed', 'm_trg_8_aiso_embed'])
+
+wsptools.MakeBinnedCategoryFuncMap(w, 'm_iso', [0., 0.2, 0.50],
+                                   'm_looseiso_binned_data', ['m_looseiso_data', 'm_looseiso_aiso_data'])
+wsptools.MakeBinnedCategoryFuncMap(w, 'm_iso', [0., 0.2, 0.50],
+                                   'm_looseiso_binned_mc', ['m_looseiso_mc', 'm_looseiso_aiso_mc'])
+wsptools.MakeBinnedCategoryFuncMap(w, 'm_iso', [0., 0.2, 0.50],
+                                   'm_looseiso_binned_embed', ['m_looseiso_embed', 'm_looseiso_aiso_embed'])
+
+w.factory('expr::m_looseiso_ratio("@0/@1", m_looseiso_data, m_looseiso_mc)')
+w.factory('expr::m_looseiso_embed_ratio("@0/@1", m_looseiso_data, m_looseiso_embed)')
+
+w.factory('expr::m_looseiso_binned_ratio("@0/@1", m_looseiso_binned_data, m_looseiso_binned_mc)')
+w.factory('expr::m_looseiso_binned_embed_ratio("@0/@1", m_looseiso_binned_data, m_looseiso_binned_embed)')
 
 for t in ['trg','trg_binned']:
     w.factory('expr::m_%s_23_ratio("@0/@1", m_%s_23_data, m_%s_23_mc)' % (t, t, t))
@@ -188,6 +233,9 @@ histsToWrap = [
     (loc+'2017/SingleElectron/electron_SFs.root:data_iso_eff', 'e_iso_data'),
     (loc+'2017/SingleElectron/electron_SFs.root:ZLL_iso_eff', 'e_iso_mc'),
     (loc+'2017/SingleElectron/electron_SFs.root:embed_iso_eff', 'e_iso_embed'),
+    (loc+'2017/em_lo/aiso/electron_SFs.root:data_iso_eff', 'e_aiso_data'),
+    (loc+'2017/em_lo/aiso/electron_SFs.root:ZLL_iso_eff', 'e_aiso_mc'),
+    (loc+'2017/em_lo/aiso/electron_SFs.root:embed_iso_eff', 'e_aiso_embed'),
     (loc+'2017/SingleElectron/electron_SFs.root:data_trg_eff', 'e_trg_data'),
     (loc+'2017/SingleElectron/electron_SFs.root:ZLL_trg_eff', 'e_trg_mc'),
     (loc+'2017/SingleElectron/electron_SFs.root:embed_trg_eff', 'e_trg_embed'),
@@ -205,19 +253,19 @@ for task in histsToWrap:
     wsptools.SafeWrapHist(w, ['e_pt', 'expr::e_abs_eta("TMath::Abs(@0)",e_eta[0])'],
                           GetFromTFile(task[0]), name=task[1])
 
-wsptools.MakeBinnedCategoryFuncMap(w, 'e_iso', [0., 0.10, 0.30, 0.50],
-                                   'e_trg_binned_data', ['e_trg_data', 'e_trg_data', 'e_trg_data'])
-wsptools.MakeBinnedCategoryFuncMap(w, 'e_iso', [0., 0.10, 0.30, 0.50],
-                                   'e_trg_binned_mc', ['e_trg_mc', 'e_trg_mc', 'e_trg_mc'])
-wsptools.MakeBinnedCategoryFuncMap(w, 'e_iso', [0., 0.10, 0.30, 0.50],
-                                   'e_trg_binned_embed', ['e_trg_embed', 'e_trg_embed', 'e_trg_embed'])
+wsptools.MakeBinnedCategoryFuncMap(w, 'e_iso', [0., 0.15, 0.50],
+                                   'e_trg_binned_data', ['e_trg_data', 'e_trg_data'])
+wsptools.MakeBinnedCategoryFuncMap(w, 'e_iso', [0., 0.15, 0.50],
+                                   'e_trg_binned_mc', ['e_trg_mc', 'e_trg_mc'])
+wsptools.MakeBinnedCategoryFuncMap(w, 'e_iso', [0., 0.15, 0.50],
+                                   'e_trg_binned_embed', ['e_trg_embed', 'e_trg_embed'])
 
-wsptools.MakeBinnedCategoryFuncMap(w, 'e_iso', [0., 0.10, 0.30, 0.50],
-                                   'e_iso_binned_data', ['e_iso_data', 'e_iso_data', 'e_iso_data'])
-wsptools.MakeBinnedCategoryFuncMap(w, 'e_iso', [0., 0.10, 0.30, 0.50],
-                                   'e_iso_binned_mc', ['e_iso_mc', 'e_iso_mc', 'e_iso_mc'])
-wsptools.MakeBinnedCategoryFuncMap(w, 'e_iso', [0., 0.10, 0.30, 0.50],
-                                   'e_iso_binned_embed', ['e_iso_embed', 'e_iso_embed', 'e_iso_embed'])
+wsptools.MakeBinnedCategoryFuncMap(w, 'e_iso', [0., 0.15, 0.50],
+                                   'e_iso_binned_data', ['e_iso_data', 'e_aiso_data'])
+wsptools.MakeBinnedCategoryFuncMap(w, 'e_iso', [0., 0.15, 0.50],
+                                   'e_iso_binned_mc', ['e_iso_mc', 'e_aiso_mc'])
+wsptools.MakeBinnedCategoryFuncMap(w, 'e_iso', [0., 0.15, 0.50],
+                                   'e_iso_binned_embed', ['e_iso_embed', 'e_aiso_embed'])
 
 for t in ['data', 'mc']:
     w.factory('expr::e_idiso_%s("@0*@1", e_id_pog_%s, e_iso_%s)' % (t, t, t))
