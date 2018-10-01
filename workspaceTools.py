@@ -23,6 +23,28 @@ def TGraphAsymmErrorsToTH1D(graph):
         hist.SetBinError(i, (graph.GetEYhigh()[i-1] + graph.GetEYlow()[i-1]) / 2.)
     return hist
 
+def UncertsFromGraphs(graph_data,graph_mc):
+    nbins = graph_data.GetN()
+    bin_edges = []
+    for i in xrange(0, nbins):
+        bin_edges.append(graph_data.GetX()[i]-graph_data.GetEXlow()[i])
+    bin_edges.append(graph_data.GetX()[i]+graph_data.GetEXhigh()[nbins-1])
+    hist_up = ROOT.TH1D(graph_data.GetName()+'_up', graph_data.GetTitle(), nbins, array('d', bin_edges))
+    hist_down = ROOT.TH1D(graph_data.GetName()+'_down', graph_data.GetTitle(), nbins, array('d', bin_edges))
+    for i in xrange(1, nbins+1):
+        content_data=graph_data.GetY()[i-1]
+        content_data_up=graph_data.GetEYhigh()[i-1]
+        content_data_down=graph_data.GetEYlow()[i-1]
+
+        content_mc=graph_mc.GetY()[i-1] 
+        content_mc_up=graph_mc.GetEYhigh()[i-1]
+        content_mc_down=graph_mc.GetEYlow()[i-1]
+        # assume data and MC uncertainties are uncorrelated, data up-shift shifts SF up whereas data down-shift shifts SF up and vise versa
+        up = (1.+math.sqrt((content_data_up/content_data)**2 + (content_mc_down/content_mc)**2))
+        down = (1.-math.sqrt((content_data_down/content_data)**2 + (content_mc_up/content_mc)**2))
+        hist_up.SetBinContent(i,up)
+        hist_down.SetBinContent(i,down)
+    return (hist_up,hist_down)
 
 # Special version of the above function that infers the binning without using EXlow/high
 # Instead relies on the assumption that first bin starts at zero

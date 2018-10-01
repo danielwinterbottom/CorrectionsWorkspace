@@ -372,7 +372,7 @@ for chan in channels:
     for task in histsToWrap:
       wsptools.SafeWrapHist(w, ['t_pt'],
                             GetFromTFile(task[0]), name=task[1])
-  
+ 
     histsToWrap = [
       (loc+'embed_tau_trig_eff_%s.root:eff_%siso_eta' % (chan,wp), 't_trg_phieta_%s_%s_embed' % (wp,chan)),
       (loc+'embed_tau_trig_eff_%s.root:eff_%siso_aveeta' % (chan,wp),'t_trg_ave_phieta_%s_%s_embed' % (wp,chan))
@@ -415,6 +415,8 @@ w.factory('expr::t_trg_tight_tt_mcclose("@0/@1", t_trg_tight_tt_mcfull, t_trg_ti
 loc = 'inputs/TauTriggerSFs2017/'
 
 tau_id_wps=['medium','tight','vtight']
+
+tau_trg_file = ROOT.TFile(loc+'tauTriggerEfficiencies2017_New.root')
 
 for wp in tau_id_wps:
   histsToWrap = [
@@ -461,6 +463,20 @@ for wp in tau_id_wps:
   w.factory('expr::t_trg_%s_tt_ratio("@0/@1", t_trg_%s_tt_data, t_trg_%s_tt_mc)' % (wp, wp, wp))
   w.factory('expr::t_trg_%s_et_ratio("@0/@1", t_trg_%s_et_data, t_trg_%s_et_mc)' % (wp, wp, wp))
   w.factory('expr::t_trg_%s_mt_ratio("@0/@1", t_trg_%s_mt_data, t_trg_%s_mt_mc)' % (wp, wp, wp))
+
+  # now use the graphs to get the uncertainty variations
+  graphsToWrap = [
+    ('graph_diTauTriggerEfficiency_%sTauMVA_'  % wp, 't_trg_%s_tt' % wp),
+    ('graph_MuTauTriggerEfficiency_%sTauMVA_' % wp, 't_trg_%s_mt' % wp),
+    ('graph_ETauTriggerEfficiency_%sTauMVA_' % wp, 't_trg_%s_et' % wp),
+  ]
+  
+  for task in graphsToWrap:
+    data_hist = tau_trg_file.Get(task[0]+'DATA')
+    mc_hist = tau_trg_file.Get(task[0]+'MC')
+    uncert_hists = wsptools.UncertsFromGraphs(data_hist,mc_hist)
+    wsptools.SafeWrapHist(w, ['t_pt'], uncert_hists[0], name=task[1]+'_up')
+    wsptools.SafeWrapHist(w, ['t_pt'], uncert_hists[1], name=task[1]+'_down')
 
 ### Electron leg of etau cross trigger SF -- DESY (for now)
 loc = 'inputs/LeptonEfficiencies/Electron/Run2017/'
