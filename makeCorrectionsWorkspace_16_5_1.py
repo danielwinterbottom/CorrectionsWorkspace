@@ -609,6 +609,23 @@ with open('inputs/ICSF/TauTau/embed_trg_fits.json') as jsonfile:
       wsptools.MakeBinnedCategoryFuncMap(w, 't_dm', [-0.5, 0.5, 9.5, 10.5],
                                                  't_%s_tt_embed' % label, ['t_%s_dm0_tt_embed' % label, 't_%s_dm1_tt_embed' % label, 't_%s_dm10_tt_embed' % label])
 
+for p in ['full', 'calo']:
+  with open('inputs/ICSF/TauTau/mc_trg_fits_%s.json' % p) as jsonfile:
+    pars = json.load(jsonfile)
+    for iso in ['Tight']:
+      for dm in ['dm0', 'dm1', 'dm10']:
+        label = '%sIso_%s' % (iso,dm)
+        x = pars['embed_%s' % (label)]
+        w.factory('CrystalBallEfficiency::t_%s_tt_%s(t_pt[0],%g,%g,%g,%g,%g)' % (
+                      label, p, x['m_{0}'], x['sigma'], x['alpha'], x['n'], x['norm']
+                  ))
+      label = '%sIso' % iso
+      wsptools.MakeBinnedCategoryFuncMap(w, 't_dm', [-0.5, 0.5, 9.5, 10.5],
+                                                 't_%s_tt_%s' % (label,p), ['t_%s_dm0_tt_%s' % (label,p), 't_%s_dm1_tt_%s' % (label,p), 't_%s_dm10_tt_%s' % (label,p)])
+
+w.factory('expr::t_trg_tight_tt_mcclose("@0/@1", t_TightIso_tt_full, t_TightIso_tt_calo)')
+
+
 interpOrder = 1
 tau_mt_file = ROOT.TFile('inputs/ICSF/TauTau/embed_tau_trig_eff_mt.root')
 
