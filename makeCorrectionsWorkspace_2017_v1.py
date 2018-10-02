@@ -409,6 +409,9 @@ w.factory('expr::t_trg_tight_tt_mcfull("@0*@1/@2", t_trg_pt_tight_tt_mcfull, t_t
 w.factory('expr::t_trg_tight_tt_mccalo("@0*@1/@2", t_trg_pt_tight_tt_mccalo, t_trg_phieta_tight_tt_mccalo, t_trg_ave_phieta_tight_tt_mccalo)') 
 w.factory('expr::t_trg_tight_tt_mcclose("@0/@1", t_trg_tight_tt_mcfull, t_trg_tight_tt_mccalo)')
 
+for task in histsToWrap:
+  wsptools.SafeWrapHist(w, ['t_pt_2','t_pt_1'],
+                        GetFromTFile('inputs/ICSF/2017/TauTrg/embed_trg_nonclosure_2017.root:nonclosure'), name='t_trg_nonclosure')
 
 ### Tau Trigger scale factors from Tau POG
 
