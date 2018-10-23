@@ -280,69 +280,42 @@ for t in ['trg', 'trg24', 'trg_27_32_35', 'trg_binned', 'id', 'iso', 'iso_binned
 
 
 ## IC em qcd os/ss weights
-loc = 'inputs/ICSF/'
-wsptools.SafeWrapHist(w, ['expr::m_pt_max100("min(@0,100)",m_pt[0])', 'expr::e_pt_max100("min(@0,100)",e_pt[0])'],  GetFromTFile(loc+'/em_qcd/em_qcd_factors_maiso.root:qcd_factors'), 'em_qcd_factors')
-wsptools.SafeWrapHist(w, ['expr::m_pt_max100("min(@0,100)",m_pt[0])', 'expr::e_pt_max100("min(@0,100)",e_pt[0])'],  GetFromTFile(loc+'/em_qcd/em_qcd_factors_bothaiso.root:qcd_factors'), 'em_qcd_factors_bothaiso')
-#wsptools.SafeWrapHist(w, ['expr::dR_max4p5("min(@0,4.5)",dR[0])','expr::njets_max1("min(@0,1)",njets[0])'],  GetFromTFile(loc+'/em_qcd/em_aiso_iso_extrap.root:extrap_uncert'), 'em_qcd_extrap_uncert')
-wsptools.SafeWrapHist(w, ['expr::m_pt_max40("min(@0,40)",m_pt[0])','expr::e_pt_max40("min(@0,40)",e_pt[0])'],  GetFromTFile(loc+'/em_qcd/em_qcd_isoextrap.root:isoextrap_uncert'), 'em_qcd_extrap_uncert')
 
-w.factory('expr::em_qcd_0jet("(2.162-0.05135*@0)*@1",dR[0],em_qcd_factors)')
-w.factory('expr::em_qcd_1jet("(2.789-0.2712*@0)*@1",dR[0],em_qcd_factors)')
 
-w.factory('expr::em_qcd_0jet_bothaiso("(3.212-0.2186*@0)*@1",dR[0],em_qcd_factors_bothaiso)')
-w.factory('expr::em_qcd_1jet_bothaiso("(3.425-0.3629*@0)*@1",dR[0],em_qcd_factors_bothaiso)')
+loc = 'inputs/ICSF/em_osss_2017/'
+wsptools.SafeWrapHist(w, ['expr::m_pt_max100("min(@0,100)",m_pt[0])', 'expr::e_pt_max100("min(@0,100)",e_pt[0])'],  GetFromTFile(loc+'/em_osss_2017.root:pt_closure'), 'em_qcd_factors')
+wsptools.SafeWrapHist(w, ['expr::m_pt_max100("min(@0,100)",m_pt[0])', 'expr::e_pt_max100("min(@0,100)",e_pt[0])'],  GetFromTFile(loc+'/em_osss_2017.root:pt_closure_aiso'), 'em_qcd_factors_bothaiso')
+wsptools.SafeWrapHist(w, ['expr::m_pt_max40("min(@0,40)",m_pt[0])','expr::e_pt_max40("min(@0,40)",e_pt[0])'],  GetFromTFile(loc+'/em_osss_2017.root:iso_extrap'), 'em_qcd_extrap_uncert')
 
-w.factory('expr::em_qcd_0jet_shapeup("(2.162-(0.05135-0.0583)*@0)*@1",dR[0],em_qcd_factors)')
-w.factory('expr::em_qcd_0jet_shapedown("(2.162-(0.05135+0.0583)*@0)*@1",dR[0],em_qcd_factors)')
-w.factory('expr::em_qcd_1jet_shapeup("(2.789-(0.2712-0.0390)*@0)*@1",dR[0],em_qcd_factors)')
-w.factory('expr::em_qcd_1jet_shapedown("(2.789-(0.2712+0.0390)*@0)*@1",dR[0],em_qcd_factors)')
+w.factory('expr::em_qcd_osss_binned("((@0<0.15)*((@1==0)*(2.505-0.1545*@2) + (@1>0)*(2.896-0.3304*@2)) + (@0>=0.15)*((@1==0)*(3.048-0.1726*@2) + (@1>0)*(3.398-0.3965*@2)))*@3" ,iso[0],njets[0],dR[0],em_qcd_factors)')
 
-w.factory('expr::em_qcd_0jet_rateup("(2.162+0.192-0.05135*@0)*@1",dR[0],em_qcd_factors)')
-w.factory('expr::em_qcd_0jet_ratedown("(2.162-0.192-0.05135*@0)*@1",dR[0],em_qcd_factors)')
-w.factory('expr::em_qcd_1jet_rateup("(2.789+0.0105-0.2712*@0)*@1",dR[0],em_qcd_factors)')
-w.factory('expr::em_qcd_1jet_ratedown("(2.789-0.0105-0.2712*@0)*@1",dR[0],em_qcd_factors)')
+w.factory('expr::em_qcd_osss_0jet_rateup("((@0<0.15)*((@1==0)*(2.660-0.1545*@2) + (@1>0)*(2.896-0.3304*@2)) + (@0>=0.15)*((@1==0)*(3.173-0.1726*@2) + (@1>0)*(3.398-0.3965*@2)))*@3" ,iso[0],njets[0],dR[0],em_qcd_factors)')
+w.factory('expr::em_qcd_osss_0jet_ratedown("((@0<0.15)*((@1==0)*(2.350-0.1545*@2) + (@1>0)*(2.896-0.3304*@2)) + (@0>=0.15)*((@1==0)*(2.923-0.1726*@2) + (@1>0)*(3.398-0.3965*@2)))*@3" ,iso[0],njets[0],dR[0],em_qcd_factors)')
+w.factory('expr::em_qcd_osss_0jet_shapeup("((@0<0.15)*((@1==0)*(2.505-0.1075*@2) + (@1>0)*(2.896-0.3304*@2)) + (@0>=0.15)*((@1==0)*(3.0480.0000*@2) + (@1>0)*(3.398-0.3965*@2)))*@3" ,iso[0],njets[0],dR[0],em_qcd_factors)')
+w.factory('expr::em_qcd_osss_0jet_shapedown("((@0<0.15)*((@1==0)*(2.505-0.2015*@2) + (@1>0)*(2.896-0.3304*@2)) + (@0>=0.15)*((@1==0)*(3.048-0.2110*@2) + (@1>0)*(3.398-0.3965*@2)))*@3" ,iso[0],njets[0],dR[0],em_qcd_factors)')
 
-wsptools.MakeBinnedCategoryFuncMap(w, 'njets', [0,1,10000],
-                                   'em_qcd_osss_binned', ['em_qcd_0jet','em_qcd_1jet'])
 
-wsptools.MakeBinnedCategoryFuncMap(w, 'njets', [0,1,10000],
-                                   'em_qcd_osss_binned_bothaiso', ['em_qcd_0jet_bothaiso','em_qcd_1jet_bothaiso'])
+w.factory('expr::em_qcd_osss_1jet_rateup("((@0<0.15)*((@1==0)*(2.505-0.1545*@2) + (@1>0)*(2.978-0.3304*@2)) + (@0>=0.15)*((@1==0)*(3.048-0.1726*@2) + (@1>0)*(3.459-0.3965*@2)))*@3" ,iso[0],njets[0],dR[0],em_qcd_factors)')
+w.factory('expr::em_qcd_osss_1jet_ratedown("((@0<0.15)*((@1==0)*(2.505-0.1545*@2) + (@1>0)*(2.814-0.3304*@2)) + (@0>=0.15)*((@1==0)*(3.048-0.1726*@2) + (@1>0)*(3.337-0.3965*@2)))*@3" ,iso[0],njets[0],dR[0],em_qcd_factors)')
+w.factory('expr::em_qcd_osss_1jet_shapeup("((@0<0.15)*((@1==0)*(2.505-0.1545*@2) + (@1>0)*(2.896-0.3019*@2)) + (@0>=0.15)*((@1==0)*(3.048-0.1726*@2) + (@1>0)*(3.398-0.3753*@2)))*@3" ,iso[0],njets[0],dR[0],em_qcd_factors)')
+w.factory('expr::em_qcd_osss_1jet_shapedown("((@0<0.15)*((@1==0)*(2.505-0.1545*@2) + (@1>0)*(2.896-0.3589*@2)) + (@0>=0.15)*((@1==0)*(3.048-0.1726*@2) + (@1>0)*(3.398-0.4177*@2)))*@3" ,iso[0],njets[0],dR[0],em_qcd_factors)')
 
 
 wsptools.MakeBinnedCategoryFuncMap(w, 'njets', [0,1,10000],
-                                   'em_qcd_osss_shapeup_binned', ['em_qcd_0jet_shapeup','em_qcd_1jet_shapeup'])
+                                   'em_qcd_osss_shapeup_binned', ['em_qcd_osss_0jet_shapeup','em_qcd_osss_1jet_shapeup'])
 
 wsptools.MakeBinnedCategoryFuncMap(w, 'njets', [0,1,10000],
-                                   'em_qcd_osss_shapedown_binned', ['em_qcd_0jet_shapedown','em_qcd_1jet_shapedown'])
+                                   'em_qcd_osss_shapedown_binned', ['em_qcd_osss_0jet_shapedown','em_qcd_osss_1jet_shapedown'])
 
 wsptools.MakeBinnedCategoryFuncMap(w, 'njets', [0,1,10000],
-                                   'em_qcd_osss_rateup_binned', ['em_qcd_0jet_rateup','em_qcd_1jet_rateup'])
+                                   'em_qcd_osss_rateup_binned', ['em_qcd_osss_0jet_rateup','em_qcd_osss_1jet_rateup'])
 
 wsptools.MakeBinnedCategoryFuncMap(w, 'njets', [0,1,10000],
-                                   'em_qcd_osss_ratedown_binned', ['em_qcd_0jet_ratedown','em_qcd_1jet_ratedown'])
+                                   'em_qcd_osss_ratedown_binned', ['em_qcd_osss_0jet_ratedown','em_qcd_osss_1jet_ratedown'])
 
-
-wsptools.SafeWrapHist(w, ['expr::m_pt_max100("min(@0,100)",m_pt[0])', 'expr::e_pt_max100("min(@0,100)",e_pt[0])'],  GetFromTFile(loc+'/em_qcd/em_qcd_factors_2.root:qcd_factors'), 'em_qcd_factors_bothaiso')
-
-w.factory('expr::em_qcd_0jet_bothaiso("(3.208-0.217*@0)*@1",dR[0],em_qcd_factors_bothaiso)')
-w.factory('expr::em_qcd_1jet_bothaiso("(3.426-0.3628*@0)*@1",dR[0],em_qcd_factors_bothaiso)')
-
-wsptools.MakeBinnedCategoryFuncMap(w, 'njets', [0,1,10000],
-                                   'em_qcd_osss_binned_bothaiso', ['em_qcd_0jet_bothaiso','em_qcd_1jet_bothaiso'])
 
 w.factory('expr::em_qcd_extrap_up("@0*@1",em_qcd_osss_binned,em_qcd_extrap_uncert)')
 w.factory('expr::em_qcd_extrap_down("@0*(2-@1)",em_qcd_osss_binned,em_qcd_extrap_uncert)')
-
-w.factory('expr::em_qcd_bothaiso_extrap_up("@0*@1",em_qcd_osss_binned_bothaiso,em_qcd_extrap_uncert)')
-w.factory('expr::em_qcd_bothaiso_extrap_down("@0*(2-@1)",em_qcd_osss_binned_bothaiso,em_qcd_extrap_uncert)')
-
-em_funcs = ['em_qcd_osss_binned','em_qcd_osss_shapeup_binned','em_qcd_osss_shapedown_binned','em_qcd_osss_rateup_binned','em_qcd_osss_ratedown_binned']
-for i in em_funcs:
-  w.factory('expr::%s_mva("(@0<=0)*@1 + (@0>0)*1.11632",nbjets[0],%s)' %(i,i))
-# add uncertainty on n_bjets>0 bin = +/-36% (11% statistical + 18% background-subtraction + 29% aiso->iso extrapolation added in quadrature)
-w.factory('expr::em_qcd_osss_binned_mva_nbjets_up("(@0<=0)*@1 + (@0>0)*1.11632*1.36",nbjets[0],em_qcd_osss_binned)')
-w.factory('expr::em_qcd_osss_binned_mva_nbjets_down("(@0<=0)*@1 + (@0>0)*1.11632*0.64",nbjets[0],em_qcd_osss_binned)')
-
 
 
 ### Muon tracking efficiency scale factor from the muon POG
@@ -366,12 +339,26 @@ channels=['tt','et','mt']
 for chan in channels:
   for wp in tau_id_wps:
     histsToWrap = [
-      (loc+'embed_tau_trig_eff_%s.root:eff_%siso_pt' % (chan,wp), 't_trg_pt_%s_%s_embed' % (wp,chan))
+      (loc+'embed_tau_trig_eff_%s.root:eff_%siso_pt' % (chan,wp), 't_trg_pt_%s_%s_embed' % (wp,chan)),
+
     ]
+    if chan == 'tt' and wp =='tight':
+      histsToWrap += [
+        (loc+'tau_trg_2017_new/embed_tau_trig_eff_%s_%siso_trig1.root:eff_%siso_pt' % (chan,wp,wp), 't_trg_pt_%s_%s_trig1_mc' % (wp,chan)),
+        (loc+'tau_trg_2017_new/embed_tau_trig_eff_%s_%siso_trig2.root:eff_%siso_pt' % (chan,wp,wp), 't_trg_pt_%s_%s_trig2_mc' % (wp,chan)),
+        (loc+'tau_trg_2017_new/embed_tau_trig_eff_%s_%siso_trig3.root:eff_%siso_pt' % (chan,wp,wp), 't_trg_pt_%s_%s_trig3_mc' % (wp,chan)),
+        (loc+'tau_trg_2017_new/embed_tau_trig_eff_%s_%siso_trig1and2.root:eff_%siso_pt' % (chan,wp,wp), 't_trg_pt_%s_%s_trig1and2_mc' % (wp,chan)),
+        (loc+'tau_trg_2017_new/embed_tau_trig_eff_%s_%siso_trig1and3.root:eff_%siso_pt' % (chan,wp,wp), 't_trg_pt_%s_%s_trig1and3_mc' % (wp,chan)),
+        (loc+'tau_trg_2017_new/embed_tau_trig_eff_%s_%siso_trig2and3.root:eff_%siso_pt' % (chan,wp,wp), 't_trg_pt_%s_%s_trig2and3_mc' % (wp,chan)),
+        (loc+'tau_trg_2017_new/embed_tau_trig_eff_%s_%siso_trig1and2and3.root:eff_%siso_pt' % (chan,wp,wp), 't_trg_pt_%s_%s_trig1and2and3_mc' % (wp,chan)),
+        (loc+'tau_trg_2017_new/embed_tau_trig_eff_%s_%siso_or.root:eff_%siso_pt' % (chan,wp,wp), 't_trg_pt_%s_%s_or_mc' % (wp,chan))
+      ]
   
     for task in histsToWrap:
-      wsptools.SafeWrapHist(w, ['t_pt'],
-                            GetFromTFile(task[0]), name=task[1])
+      wsptools.SafeWrapHist(w, ['t_pt_1'],
+                            GetFromTFile(task[0]), name=task[1]+'_1')
+      wsptools.SafeWrapHist(w, ['t_pt_2'],
+                            GetFromTFile(task[0]), name=task[1]+'_2')
  
     histsToWrap = [
       (loc+'embed_tau_trig_eff_%s.root:eff_%siso_eta' % (chan,wp), 't_trg_phieta_%s_%s_embed' % (wp,chan)),
@@ -383,7 +370,9 @@ for chan in channels:
                             GetFromTFile(task[0]), name=task[1])
   
     w.factory('expr::t_trg_%s_%s_embed("@0*@1/@2", t_trg_pt_%s_%s_embed, t_trg_phieta_%s_%s_embed, t_trg_ave_phieta_%s_%s_embed)' % (wp, chan, wp, chan, wp, chan, wp, chan))
-  
+
+w.factory('expr::t_trg_tt_tight_mc_new("@0*@1 + @2*@3 + @4*@5 - @6*@7 - @8*@9 -@10*@11 + @12*@13", t_trg_pt_tight_tt_trig1_mc_1,t_trg_pt_tight_tt_trig1_mc_2,t_trg_pt_tight_tt_trig2_mc_1,t_trg_pt_tight_tt_trig2_mc_2,t_trg_pt_tight_tt_trig3_mc_1,t_trg_pt_tight_tt_trig3_mc_2,t_trg_pt_tight_tt_trig1and2_mc_1,t_trg_pt_tight_tt_trig1and2_mc_2,t_trg_pt_tight_tt_trig1and3_mc_1,t_trg_pt_tight_tt_trig1and3_mc_2,t_trg_pt_tight_tt_trig2and3_mc_1,t_trg_pt_tight_tt_trig2and3_mc_2, t_trg_pt_tight_tt_trig1and2and3_mc_1,t_trg_pt_tight_tt_trig1and2and3_mc_2)')
+ 
 # MC effieicies for closure tests
 histsToWrap = [
     (loc+'embed_tau_trig_eff_tt_tightiso_mcfull.root:eff_tightiso_pt' , 't_trg_pt_tight_tt_mcfull' ),
