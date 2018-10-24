@@ -335,7 +335,7 @@ wsptools.SafeWrapHist(w, ['e_eta','e_pt'], electron_trk_eff_hist, name='e_trk_ra
 loc = 'inputs/ICSF/2017/TauTrg/'
 tau_id_wps=['vloose','loose','medium','tight']
 channels=['tt','et','mt']
-
+#t_trg_tight_tt_embed
 for chan in channels:
   for wp in tau_id_wps:
     histsToWrap = [
@@ -355,6 +355,8 @@ for chan in channels:
       ]
   
     for task in histsToWrap:
+      wsptools.SafeWrapHist(w, ['t_pt'],
+                            GetFromTFile(task[0]), name=task[1])
       wsptools.SafeWrapHist(w, ['t_pt_1'],
                             GetFromTFile(task[0]), name=task[1]+'_1')
       wsptools.SafeWrapHist(w, ['t_pt_2'],
