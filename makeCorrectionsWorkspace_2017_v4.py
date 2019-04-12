@@ -124,7 +124,7 @@ for task in histsToWrap:
 
 
 # IC em trigger SF
-loc = 'inputs/ICSF/2017/'
+loc = 'inputs/ICSF/2017/ElecIDV2/'
 
 histsToWrap = [
     (loc+'em_lo/electron_SFs.root:data_trg_eff', 'e_trg_12_data'),
@@ -163,6 +163,7 @@ for t in ['trg','trg_binned']:
     w.factory('expr::e_%s_12_ratio("@0/@1", e_%s_12_data, e_%s_12_mc)' % (t, t, t))
     w.factory('expr::e_%s_23_ratio("@0/@1", e_%s_23_data, e_%s_23_mc)' % (t, t, t))
 
+loc = 'inputs/ICSF/2017/'
 
 histsToWrap = [
     (loc+'em_hi/muon_SFs.root:data_trg_eff', 'm_trg_23_data'),
@@ -225,27 +226,27 @@ for t in ['trg','trg_binned']:
 loc = 'inputs/ICSF/'
         
 histsToWrap = [
-    (loc+'2017/SingleLepton/electron_SFs.root:data_id_eff', 'e_id_data'),
-    (loc+'2017/SingleLepton/electron_SFs.root:ZLL_id_eff', 'e_id_mc'),
-    (loc+'2017/SingleLepton/electron_SFs.root:embed_id_eff', 'e_id_embed'),
-    (loc+'2017/SingleLepton/electron_SFs.root:data_iso_eff', 'e_iso_data'),
-    (loc+'2017/SingleLepton/electron_SFs.root:ZLL_iso_eff', 'e_iso_mc'),
-    (loc+'2017/SingleLepton/electron_SFs.root:embed_iso_eff', 'e_iso_embed'),
-    (loc+'2017/em_lo/aiso/electron_SFs.root:data_iso_eff', 'e_aiso_data'),
-    (loc+'2017/em_lo/aiso/electron_SFs.root:ZLL_iso_eff', 'e_aiso_mc'),
-    (loc+'2017/em_lo/aiso/electron_SFs.root:embed_iso_eff', 'e_aiso_embed'),
-    (loc+'2017/SingleLepton/electron_SFs.root:data_trg_eff', 'e_trg_data'),
-    (loc+'2017/SingleLepton/electron_SFs.root:ZLL_trg_eff', 'e_trg_mc'),
-    (loc+'2017/SingleLepton/electron_SFs.root:embed_trg_eff', 'e_trg_embed'),
-    (loc+'2017/Ele24/electron_SFs.root:data_trg_eff', 'e_trg24_data'),
-    (loc+'2017/Ele24/electron_SFs.root:ZLL_trg_eff', 'e_trg24_mc'),
-    (loc+'2017/Ele24/electron_SFs.root:embed_trg_eff', 'e_trg24_embed'),
-    (loc+'2017/Ele24/fromDoubleE/electron_SFs.root:data_trg_eff', 'e_trg24_fromDoubleE_data'),
-    (loc+'2017/Ele24/fromDoubleE/electron_SFs.root:ZLL_trg_eff', 'e_trg24_fromDoubleE_mc'),
-    (loc+'2017/Ele24/fromDoubleE/electron_SFs.root:embed_trg_eff', 'e_trg24_fromDoubleE_embed'),
-    (loc+'2017/SingleElectron_27_32single_35/electron_SFs.root:data_trg_eff','e_trg_27_32_35_data'),
-    (loc+'2017/SingleElectron_27_32single_35/electron_SFs.root:ZLL_trg_eff','e_trg_27_32_35_mc'),
-    (loc+'2017/SingleElectron_27_32single_35/electron_SFs.root:embed_trg_eff','e_trg_27_32_35_embed')
+    (loc+'2017/ElecIDV2/SingleLepton/electron_SFs.root:data_id_eff', 'e_id_data'),
+    (loc+'2017/ElecIDV2/SingleLepton/electron_SFs.root:ZLL_id_eff', 'e_id_mc'),
+    (loc+'2017/ElecIDV2/SingleLepton/electron_SFs.root:embed_id_eff', 'e_id_embed'),
+    (loc+'2017/ElecIDV2/SingleLepton/electron_SFs.root:data_iso_eff', 'e_iso_data'),
+    (loc+'2017/ElecIDV2/SingleLepton/electron_SFs.root:ZLL_iso_eff', 'e_iso_mc'),
+    (loc+'2017/ElecIDV2/SingleLepton/electron_SFs.root:embed_iso_eff', 'e_iso_embed'),
+    (loc+'2017/ElecIDV2/em_lo/aiso/electron_SFs.root:data_iso_eff', 'e_aiso_data'),
+    (loc+'2017/ElecIDV2/em_lo/aiso/electron_SFs.root:ZLL_iso_eff', 'e_aiso_mc'),
+    (loc+'2017/ElecIDV2/em_lo/aiso/electron_SFs.root:embed_iso_eff', 'e_aiso_embed'),
+    (loc+'2017/ElecIDV2/SingleLepton/electron_SFs.root:data_trg_eff', 'e_trg_data'),
+    (loc+'2017/ElecIDV2/SingleLepton/electron_SFs.root:ZLL_trg_eff', 'e_trg_mc'),
+    (loc+'2017/ElecIDV2/SingleLepton/electron_SFs.root:embed_trg_eff', 'e_trg_embed'),
+    (loc+'2017/ElecIDV2/Ele24/electron_SFs.root:data_trg_eff', 'e_trg24_data'),
+    (loc+'2017/ElecIDV2/Ele24/electron_SFs.root:ZLL_trg_eff', 'e_trg24_mc'),
+    (loc+'2017/ElecIDV2/Ele24/electron_SFs.root:embed_trg_eff', 'e_trg24_embed'),
+    (loc+'2017/ElecIDV2/Ele24/fromDoubleE/electron_SFs.root:data_trg_eff', 'e_trg24_fromDoubleE_data'),
+    (loc+'2017/ElecIDV2/Ele24/fromDoubleE/electron_SFs.root:ZLL_trg_eff', 'e_trg24_fromDoubleE_mc'),
+    (loc+'2017/ElecIDV2/Ele24/fromDoubleE/electron_SFs.root:embed_trg_eff', 'e_trg24_fromDoubleE_embed'),
+    #(loc+'2017/SingleElectron_27_32single_35/electron_SFs.root:data_trg_eff','e_trg_27_32_35_data'),
+    #(loc+'2017/SingleElectron_27_32single_35/electron_SFs.root:ZLL_trg_eff','e_trg_27_32_35_mc'),
+    #(loc+'2017/SingleElectron_27_32single_35/electron_SFs.root:embed_trg_eff','e_trg_27_32_35_embed')
 ]
 for task in histsToWrap:
     wsptools.SafeWrapHist(w, ['e_pt', 'expr::e_abs_eta("TMath::Abs(@0)",e_eta[0])'],
@@ -329,26 +330,51 @@ electron_trk_eff_hist = GetFromTFile(loc+'/egammaEffi.txt_EGM2D_runBCDEF_passing
 wsptools.SafeWrapHist(w, ['e_eta','e_pt'], electron_trk_eff_hist, name='e_trk_ratio')
 
 ## Tau Trigger efficiencies for embedded samples from IC
+w.factory('expr::t_pt_trig("min(max(@0,20),450)" ,t_pt[0])')
 
-loc = 'inputs/ICSF/2017/TauTrg/'
+loc = 'inputs/ICSF/2017/TauTrgFinal/'
+loc2 = 'inputs/ICSF/2017/TauTrg/'
 tau_id_wps=['vloose','loose','medium','tight']
 channels=['tt','et','mt']
+#channels=['tt']
 for chan in channels:
+  tau_trg_file_embed = ROOT.TFile(loc+'/embed_tau_trig_eff_%s.root' % chan)
   for wp in tau_id_wps:
-    histsToWrap = [
-      (loc+'embed_tau_trig_eff_%s.root:eff_%siso_pt' % (chan,wp), 't_trg_pt_%s_%s_embed' % (wp,chan)),
+    for dm in ['0','1','10']:
+      func = tau_trg_file_embed.Get("eff_gr_%siso_%s_dm%s_pt_fit" % (wp,chan,dm))
+      params = func.GetParameters()
+      w.factory('expr::t_trg_pt_%s_%s_dm%s_embed("%.12f - ROOT::Math::crystalball_cdf(-@0, %.12f, %.12f, %.12f, %.12f)*(%.12f)", t_pt_trig)' % (wp,chan,dm, params[5],params[0],params[1],params[2],params[3],params[4]))
 
-    ]
+      histsToWrap = [
+        (loc+'/embed_tau_trig_eff_%s.root:eff_%siso_%s_dm%s_eta' % (chan,wp,chan,dm), 't_trg_eta_%s_%s_dm%s_embed' % (wp,chan,dm)),
+        (loc+'/embed_tau_trig_eff_%s.root:eff_%siso_%s_dm%s_aveeta' % (chan,wp,chan,dm),'t_trg_ave_eta_%s_%s_dm%s_embed' % (wp,chan,dm))
+      ]
+
+      for task in histsToWrap:
+        wsptools.SafeWrapHist(w, ['expr::t_abs_eta("TMath::Abs(@0)",t_eta[0])'],
+                              GetFromTFile(task[0]), name=task[1])
+
+    w.factory('expr::t_trg_eta_%s_%s_embed("(@0==0)*@1 + (@0==1||@0==2)*@2 + (@0==10)*@3", t_dm[0], t_trg_eta_%s_%s_dm0_embed, t_trg_eta_%s_%s_dm1_embed, t_trg_eta_%s_%s_dm10_embed)' % (wp, chan, wp, chan, wp, chan, wp, chan))
+    w.factory('expr::t_trg_ave_eta_%s_%s_embed("(@0==0)*@1 + (@0==1||@0==2)*@2 + (@0==10)*@3", t_dm[0], t_trg_ave_eta_%s_%s_dm0_embed, t_trg_ave_eta_%s_%s_dm1_embed, t_trg_ave_eta_%s_%s_dm10_embed)' % (wp, chan, wp, chan, wp, chan, wp, chan))
+
+    w.factory('expr::t_trg_pt_%s_%s_embed("(@0==0)*@1 + (@0==1||@0==2)*@2 + (@0==10)*@3", t_dm[0], t_trg_pt_%s_%s_dm0_embed, t_trg_pt_%s_%s_dm1_embed, t_trg_pt_%s_%s_dm10_embed)' % (wp, chan, wp, chan, wp, chan, wp, chan))
+
+    chan_label = 'ditau'
+    if chan == 'mt': chan_label = 'mutau'
+    if chan == 'et': chan_label = 'etau'
+    w.factory('expr::t_trg_%s_%s_embed("@0*@1/@2", t_trg_pt_%s_%s_embed, t_trg_eta_%s_%s_embed, t_trg_ave_eta_%s_%s_embed)' % (wp, chan_label, wp, chan, wp, chan, wp, chan))
+  
+    histsToWrap=[]
     if chan == 'tt' and wp =='tight':
       histsToWrap += [
-        (loc+'tau_trg_2017_new/embed_tau_trig_eff_%s_%siso_trig1.root:eff_%siso_pt' % (chan,wp,wp), 't_trg_pt_%s_%s_trig1_mc' % (wp,chan)),
-        (loc+'tau_trg_2017_new/embed_tau_trig_eff_%s_%siso_trig2.root:eff_%siso_pt' % (chan,wp,wp), 't_trg_pt_%s_%s_trig2_mc' % (wp,chan)),
-        (loc+'tau_trg_2017_new/embed_tau_trig_eff_%s_%siso_trig3.root:eff_%siso_pt' % (chan,wp,wp), 't_trg_pt_%s_%s_trig3_mc' % (wp,chan)),
-        (loc+'tau_trg_2017_new/embed_tau_trig_eff_%s_%siso_trig1and2.root:eff_%siso_pt' % (chan,wp,wp), 't_trg_pt_%s_%s_trig1and2_mc' % (wp,chan)),
-        (loc+'tau_trg_2017_new/embed_tau_trig_eff_%s_%siso_trig1and3.root:eff_%siso_pt' % (chan,wp,wp), 't_trg_pt_%s_%s_trig1and3_mc' % (wp,chan)),
-        (loc+'tau_trg_2017_new/embed_tau_trig_eff_%s_%siso_trig2and3.root:eff_%siso_pt' % (chan,wp,wp), 't_trg_pt_%s_%s_trig2and3_mc' % (wp,chan)),
-        (loc+'tau_trg_2017_new/embed_tau_trig_eff_%s_%siso_trig1and2and3.root:eff_%siso_pt' % (chan,wp,wp), 't_trg_pt_%s_%s_trig1and2and3_mc' % (wp,chan)),
-        (loc+'tau_trg_2017_new/embed_tau_trig_eff_%s_%siso_or.root:eff_%siso_pt' % (chan,wp,wp), 't_trg_pt_%s_%s_or_mc' % (wp,chan))
+        ('inputs/ICSF/2017/TauTrg/tau_trg_2017_new/embed_tau_trig_eff_%s_%siso_trig1.root:eff_%siso_pt' % (chan,wp,wp), 't_trg_pt_%s_%s_trig1_mc' % (wp,chan)),
+        ('inputs/ICSF/2017/TauTrg/tau_trg_2017_new/embed_tau_trig_eff_%s_%siso_trig2.root:eff_%siso_pt' % (chan,wp,wp), 't_trg_pt_%s_%s_trig2_mc' % (wp,chan)),
+        ('inputs/ICSF/2017/TauTrg/tau_trg_2017_new/embed_tau_trig_eff_%s_%siso_trig3.root:eff_%siso_pt' % (chan,wp,wp), 't_trg_pt_%s_%s_trig3_mc' % (wp,chan)),
+        ('inputs/ICSF/2017/TauTrg/tau_trg_2017_new/embed_tau_trig_eff_%s_%siso_trig1and2.root:eff_%siso_pt' % (chan,wp,wp), 't_trg_pt_%s_%s_trig1and2_mc' % (wp,chan)),
+        ('inputs/ICSF/2017/TauTrg/tau_trg_2017_new/embed_tau_trig_eff_%s_%siso_trig1and3.root:eff_%siso_pt' % (chan,wp,wp), 't_trg_pt_%s_%s_trig1and3_mc' % (wp,chan)),
+        ('inputs/ICSF/2017/TauTrg/tau_trg_2017_new/embed_tau_trig_eff_%s_%siso_trig2and3.root:eff_%siso_pt' % (chan,wp,wp), 't_trg_pt_%s_%s_trig2and3_mc' % (wp,chan)),
+        ('inputs/ICSF/2017/TauTrg/tau_trg_2017_new/embed_tau_trig_eff_%s_%siso_trig1and2and3.root:eff_%siso_pt' % (chan,wp,wp), 't_trg_pt_%s_%s_trig1and2and3_mc' % (wp,chan)),
+        ('inputs/ICSF/2017/TauTrg/tau_trg_2017_new/embed_tau_trig_eff_%s_%siso_or.root:eff_%siso_pt' % (chan,wp,wp), 't_trg_pt_%s_%s_or_mc' % (wp,chan))
       ]
   
     for task in histsToWrap:
@@ -359,23 +385,13 @@ for chan in channels:
       wsptools.SafeWrapHist(w, ['t_pt_2'],
                             GetFromTFile(task[0]), name=task[1]+'_2')
  
-    histsToWrap = [
-      (loc+'embed_tau_trig_eff_%s.root:eff_%siso_eta' % (chan,wp), 't_trg_phieta_%s_%s_embed' % (wp,chan)),
-      (loc+'embed_tau_trig_eff_%s.root:eff_%siso_aveeta' % (chan,wp),'t_trg_ave_phieta_%s_%s_embed' % (wp,chan))
-    ]
-  
-    for task in histsToWrap:
-      wsptools.SafeWrapHist(w, ['t_eta'],
-                            GetFromTFile(task[0]), name=task[1])
-  
-    w.factory('expr::t_trg_%s_%s_embed("@0*@1/@2", t_trg_pt_%s_%s_embed, t_trg_phieta_%s_%s_embed, t_trg_ave_phieta_%s_%s_embed)' % (wp, chan, wp, chan, wp, chan, wp, chan))
 
 w.factory('expr::t_trg_tt_tight_mc_new("@0*@1 + @2*@3 + @4*@5 - @6*@7 - @8*@9 -@10*@11 + @12*@13", t_trg_pt_tight_tt_trig1_mc_1,t_trg_pt_tight_tt_trig1_mc_2,t_trg_pt_tight_tt_trig2_mc_1,t_trg_pt_tight_tt_trig2_mc_2,t_trg_pt_tight_tt_trig3_mc_1,t_trg_pt_tight_tt_trig3_mc_2,t_trg_pt_tight_tt_trig1and2_mc_1,t_trg_pt_tight_tt_trig1and2_mc_2,t_trg_pt_tight_tt_trig1and3_mc_1,t_trg_pt_tight_tt_trig1and3_mc_2,t_trg_pt_tight_tt_trig2and3_mc_1,t_trg_pt_tight_tt_trig2and3_mc_2, t_trg_pt_tight_tt_trig1and2and3_mc_1,t_trg_pt_tight_tt_trig1and2and3_mc_2)')
  
 # MC effieicies for closure tests
 histsToWrap = [
-    (loc+'embed_tau_trig_eff_tt_tightiso_mcfull.root:eff_tightiso_pt' , 't_trg_pt_tight_tt_mcfull' ),
-    (loc+'embed_tau_trig_eff_tt_tightiso_mc.root:eff_tightiso_pt' , 't_trg_pt_tight_tt_mccalo' )
+    (loc2+'embed_tau_trig_eff_tt_tightiso_mcfull.root:eff_tightiso_pt' , 't_trg_pt_tight_tt_mcfull' ),
+    (loc2+'embed_tau_trig_eff_tt_tightiso_mc.root:eff_tightiso_pt' , 't_trg_pt_tight_tt_mccalo' )
 ]
 
 for task in histsToWrap:
@@ -383,10 +399,10 @@ for task in histsToWrap:
                         GetFromTFile(task[0]), name=task[1])
 
 histsToWrap = [
-  (loc+'embed_tau_trig_eff_tt_tightiso_mcfull.root:eff_tightiso_eta', 't_trg_phieta_tight_tt_mcfull'),
-  (loc+'embed_tau_trig_eff_tt_tightiso_mcfull.root:eff_tightiso_aveeta','t_trg_ave_phieta_tight_tt_mcfull'),
-  (loc+'embed_tau_trig_eff_tt_tightiso_mc.root:eff_tightiso_eta', 't_trg_phieta_tight_tt_mccalo'),
-  (loc+'embed_tau_trig_eff_tt_tightiso_mc.root:eff_tightiso_aveeta','t_trg_ave_phieta_tight_tt_mccalo' )
+  (loc2+'embed_tau_trig_eff_tt_tightiso_mcfull.root:eff_tightiso_eta', 't_trg_phieta_tight_tt_mcfull'),
+  (loc2+'embed_tau_trig_eff_tt_tightiso_mcfull.root:eff_tightiso_aveeta','t_trg_ave_phieta_tight_tt_mcfull'),
+  (loc2+'embed_tau_trig_eff_tt_tightiso_mc.root:eff_tightiso_eta', 't_trg_phieta_tight_tt_mccalo'),
+  (loc2+'embed_tau_trig_eff_tt_tightiso_mc.root:eff_tightiso_aveeta','t_trg_ave_phieta_tight_tt_mccalo' )
 ]
 
 for task in histsToWrap:
@@ -405,11 +421,9 @@ for task in histsToWrap:
 
 loc = 'inputs/TauTriggerSFs2017Final/'
 
-tau_id_wps=['medium','tight','vtight']
+tau_id_wps=['vloose','loose','medium','tight','vtight']
 
 tau_trg_file = ROOT.TFile(loc+'tauTriggerEfficiencies2017.root')
-
-w.factory('expr::t_pt_trig("min(max(@0,20),450)" ,t_pt[0])')
 
 for wp in tau_id_wps:
   for dm in ['0','1','10']:
