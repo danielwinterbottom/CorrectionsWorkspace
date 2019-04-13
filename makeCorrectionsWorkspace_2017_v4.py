@@ -341,9 +341,17 @@ for chan in channels:
   tau_trg_file_embed = ROOT.TFile(loc+'/embed_tau_trig_eff_%s.root' % chan)
   for wp in tau_id_wps:
     for dm in ['0','1','10']:
-      func = tau_trg_file_embed.Get("eff_gr_%siso_%s_dm%s_pt_fit" % (wp,chan,dm))
-      params = func.GetParameters()
-      w.factory('expr::t_trg_pt_%s_%s_dm%s_embed("%.12f - ROOT::Math::crystalball_cdf(-@0, %.12f, %.12f, %.12f, %.12f)*(%.12f)", t_pt_trig)' % (wp,chan,dm, params[5],params[0],params[1],params[2],params[3],params[4]))
+      if chan != 'et':
+        # for et channel the function does not fit very well so use histogram instead with interpolation
+        func = tau_trg_file_embed.Get("eff_gr_%siso_%s_dm%s_pt_fit" % (wp,chan,dm))
+        params = func.GetParameters()
+        w.factory('expr::t_trg_pt_%s_%s_dm%s_embed("%.12f - ROOT::Math::crystalball_cdf(-@0, %.12f, %.12f, %.12f, %.12f)*(%.12f)", t_pt_trig)' % (wp,chan,dm, params[5],params[0],params[1],params[2],params[3],params[4]))
+      else:
+        wsptools.SafeWrapHist(w, ['t_pt_trig'],
+                              GetFromTFile(loc+'/embed_tau_trig_eff_%s.root:eff_%siso_%s_dm%s_pt' % (chan,wp,chan,dm)), 't_trg_pt_%s_%s_dm%s_embed' % (wp,chan,dm))
+
+
+        w.function('t_trg_pt_%s_et_dm%s_embed' % (wp,dm)).setInterpolationOrder(1)
 
       histsToWrap = [
         (loc+'/embed_tau_trig_eff_%s.root:eff_%siso_%s_dm%s_eta' % (chan,wp,chan,dm), 't_trg_eta_%s_%s_dm%s_embed' % (wp,chan,dm)),
@@ -354,10 +362,10 @@ for chan in channels:
         wsptools.SafeWrapHist(w, ['expr::t_abs_eta("TMath::Abs(@0)",t_eta[0])'],
                               GetFromTFile(task[0]), name=task[1])
 
-    w.factory('expr::t_trg_eta_%s_%s_embed("(@0==0)*@1 + (@0==1||@0==2)*@2 + (@0==10)*@3", t_dm[0], t_trg_eta_%s_%s_dm0_embed, t_trg_eta_%s_%s_dm1_embed, t_trg_eta_%s_%s_dm10_embed)' % (wp, chan, wp, chan, wp, chan, wp, chan))
-    w.factory('expr::t_trg_ave_eta_%s_%s_embed("(@0==0)*@1 + (@0==1||@0==2)*@2 + (@0==10)*@3", t_dm[0], t_trg_ave_eta_%s_%s_dm0_embed, t_trg_ave_eta_%s_%s_dm1_embed, t_trg_ave_eta_%s_%s_dm10_embed)' % (wp, chan, wp, chan, wp, chan, wp, chan))
+    w.factory('expr::t_trg_eta_%s_%s_embed("(@0==0)*@1 + (@0==1)*@2 + (@0==10)*@3", t_dm[0], t_trg_eta_%s_%s_dm0_embed, t_trg_eta_%s_%s_dm1_embed, t_trg_eta_%s_%s_dm10_embed)' % (wp, chan, wp, chan, wp, chan, wp, chan))
+    w.factory('expr::t_trg_ave_eta_%s_%s_embed("(@0==0)*@1 + (@0==1)*@2 + (@0==10)*@3", t_dm[0], t_trg_ave_eta_%s_%s_dm0_embed, t_trg_ave_eta_%s_%s_dm1_embed, t_trg_ave_eta_%s_%s_dm10_embed)' % (wp, chan, wp, chan, wp, chan, wp, chan))
 
-    w.factory('expr::t_trg_pt_%s_%s_embed("(@0==0)*@1 + (@0==1||@0==2)*@2 + (@0==10)*@3", t_dm[0], t_trg_pt_%s_%s_dm0_embed, t_trg_pt_%s_%s_dm1_embed, t_trg_pt_%s_%s_dm10_embed)' % (wp, chan, wp, chan, wp, chan, wp, chan))
+    w.factory('expr::t_trg_pt_%s_%s_embed("(@0==0)*@1 + (@0==1)*@2 + (@0==10)*@3", t_dm[0], t_trg_pt_%s_%s_dm0_embed, t_trg_pt_%s_%s_dm1_embed, t_trg_pt_%s_%s_dm10_embed)' % (wp, chan, wp, chan, wp, chan, wp, chan))
 
     chan_label = 'ditau'
     if chan == 'mt': chan_label = 'mutau'
@@ -453,10 +461,10 @@ for wp in tau_id_wps:
         w.factory('expr::t_trg_pt_%s_%s_dm%s_%s("%.12f - ROOT::Math::crystalball_cdf(-@0, %.12f, %.12f, %.12f, %.12f)*(%.12f)", t_pt_trig)' % (wp,y,dm,x, params[5],params[0],params[1],params[2],params[3],params[4]))
         
   
-        w.factory('expr::t_trg_phieta_%s_%s_%s("(@0==0)*@1 + (@0==1||@0==2)*@2 + (@0==10)*@3", t_dm[0], t_trg_phieta_%s_%s_dm0_%s, t_trg_phieta_%s_%s_dm1_%s, t_trg_phieta_%s_%s_dm10_%s)' % (wp, y, x, wp, y, x, wp, y, x, wp, y, x))
-        w.factory('expr::t_trg_ave_phieta_%s_%s_%s("(@0==0)*@1 + (@0==1||@0==2)*@2 + (@0==10)*@3", t_dm[0], t_trg_ave_phieta_%s_%s_dm0_%s, t_trg_ave_phieta_%s_%s_dm1_%s, t_trg_ave_phieta_%s_%s_dm10_%s)' % (wp, y, x, wp, y, x, wp, y, x, wp, y, x))
+        w.factory('expr::t_trg_phieta_%s_%s_%s("(@0==0)*@1 + (@0==1)*@2 + (@0==10)*@3", t_dm[0], t_trg_phieta_%s_%s_dm0_%s, t_trg_phieta_%s_%s_dm1_%s, t_trg_phieta_%s_%s_dm10_%s)' % (wp, y, x, wp, y, x, wp, y, x, wp, y, x))
+        w.factory('expr::t_trg_ave_phieta_%s_%s_%s("(@0==0)*@1 + (@0==1)*@2 + (@0==10)*@3", t_dm[0], t_trg_ave_phieta_%s_%s_dm0_%s, t_trg_ave_phieta_%s_%s_dm1_%s, t_trg_ave_phieta_%s_%s_dm10_%s)' % (wp, y, x, wp, y, x, wp, y, x, wp, y, x))
   
-        w.factory('expr::t_trg_pt_%s_%s_%s("(@0==0)*@1 + (@0==1||@0==2)*@2 + (@0==10)*@3", t_dm[0], t_trg_pt_%s_%s_dm0_%s, t_trg_pt_%s_%s_dm1_%s, t_trg_pt_%s_%s_dm10_%s)' % (wp, y, x, wp, y, x, wp, y, x, wp, y, x)) 
+        w.factory('expr::t_trg_pt_%s_%s_%s("(@0==0)*@1 + (@0==1)*@2 + (@0==10)*@3", t_dm[0], t_trg_pt_%s_%s_dm0_%s, t_trg_pt_%s_%s_dm1_%s, t_trg_pt_%s_%s_dm10_%s)' % (wp, y, x, wp, y, x, wp, y, x, wp, y, x)) 
   
  
         w.factory('expr::t_trg_%s_%s_data("@0*@1/@2", t_trg_pt_%s_%s_data, t_trg_phieta_%s_%s_data, t_trg_ave_phieta_%s_%s_data)' % (wp, y, wp, y, wp, y, wp, y))  
