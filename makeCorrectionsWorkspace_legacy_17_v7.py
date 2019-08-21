@@ -444,6 +444,16 @@ w.factory('expr::e_id90iso_binned_kit_embed("@0*@1", e_id90_kit_embed, e_iso_bin
 w.factory('expr::e_id80iso_kit_embed("@0*@1", e_id80_kit_embed, e_iso_kit_embed)')
 w.factory('expr::e_id80iso_binned_kit_embed("@0*@1", e_id80_kit_embed, e_iso_binned_kit_embed)')
 
+w.factory('expr::e_id90iso_kit_data("@0*@1", e_id90_kit_data, e_iso_kit_data)')
+w.factory('expr::e_id90iso_binned_kit_data("@0*@1", e_id90_kit_data, e_iso_binned_kit_data)')
+w.factory('expr::e_id80iso_kit_data("@0*@1", e_id80_kit_data, e_iso_kit_data)')
+w.factory('expr::e_id80iso_binned_kit_data("@0*@1", e_id80_kit_data, e_iso_binned_kit_data)')
+
+w.factory('expr::e_id90iso_kit_mc("@0*@1", e_id90_kit_mc, e_iso_kit_mc)')
+w.factory('expr::e_id90iso_binned_kit_mc("@0*@1", e_id90_kit_mc, e_iso_binned_kit_mc)')
+w.factory('expr::e_id80iso_kit_mc("@0*@1", e_id80_kit_mc, e_iso_kit_mc)')
+w.factory('expr::e_id80iso_binned_kit_mc("@0*@1", e_id80_kit_mc, e_iso_binned_kit_mc)')
+
 for t in ['trg', 'trg_binned', 'trg27_trg32', 'trg27_trg32_binned', 'trg27_trg35', 'trg27_trg35_binned', 'trg32_trg35', 'trg32_trg35_binned', 'trg27_trg32_trg35', 'trg27_trg32_trg35_binned', 'trg27', 'trg32', 'trg32fb', 'trg35','id90', 'id80', 'iso', 'iso_binned', 'id90iso_binned', 'id80iso_binned']:
     w.factory('expr::e_%s_kit_ratio("@0/@1", e_%s_kit_data, e_%s_kit_mc)' % (t, t, t))
     w.factory('expr::e_%s_embed_kit_ratio("@0/@1", e_%s_kit_data, e_%s_kit_embed)' % (t, t, t))
